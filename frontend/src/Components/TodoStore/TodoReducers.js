@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { useSelector } from 'react-redux';
 // Define the initial state
 const initialState = {
   todos: [],
@@ -12,7 +11,7 @@ export const fetchTodos = createAsyncThunk(
   "todos/fetchTodos",
   async (_, thunkAPI) => {
     const token = thunkAPI.getState().user.authToken;
-    
+
     const response = await axios.get("http://localhost:4000/todos/:username", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -159,11 +158,9 @@ export const todoSlice = createSlice({
         const todoIndex = state.todos.findIndex(
           (todo) => todo._id === action.payload._id
         );
-       
+
         // Update the todo status if the todo item was found
         if (todoIndex !== -1) {
-          console.log("frontend se action.payload.status:",action.payload.status);
-          console.log("frontend se:",state.todos[todoIndex].status);
           state.todos[todoIndex].status = action.payload.status;
         }
       });

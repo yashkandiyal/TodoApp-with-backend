@@ -6,6 +6,7 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../TodoStore/UserReducer";
+import Avatarr from "./Avatar";
 
 const TodoPage = () => {
   const dispatch = useDispatch();
@@ -44,8 +45,8 @@ const TodoPage = () => {
 
   return (
     <>
-      <button onClick={loggingOutUser}>logout</button>
-      <div className="flex flex-col justify-center items-center mt-20">
+      <div className="flex flex-col  items-center mt-20">
+        <Avatarr loggingOutUser={loggingOutUser}/>
         <div className="flex w-[22rem] md:w-[50rem] items-center">
           <input
             type="text"

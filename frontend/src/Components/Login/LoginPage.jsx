@@ -20,7 +20,6 @@ const LoginPage = () => {
         username,
         password,
       });
-      console.log("Login successful:", response.data);
 
       if (response.data.token) {
         const { token, user } = response.data;
@@ -38,7 +37,7 @@ const LoginPage = () => {
         navigate(`/todos/${cleanUsername}`);
       }
     } catch (error) {
-      if (response.status === 401) {
+      if (error.response.status === 401) {
         toast.error("Account does not exist.");
       }
 
@@ -53,7 +52,6 @@ const LoginPage = () => {
   function removeSpacesFromUsername(username) {
     return username.replace(/\s+/g, "");
   }
-  
 
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-100">
