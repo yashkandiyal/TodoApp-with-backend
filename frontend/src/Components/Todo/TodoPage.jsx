@@ -13,6 +13,7 @@ const TodoPage = () => {
   const navigate = useNavigate();
   const mytodos = useSelector((state) => state.todos.todos);
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  
   const status = useSelector((state) => state.user.status);
   const username = useSelector((state) => state.user.username);
   const [newTodoText, setNewTodoText] = useState("");

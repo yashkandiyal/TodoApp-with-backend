@@ -1,15 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const cors = require("cors"); // Import the cors middleware
+const cors = require("cors");
 const app = express();
 const port = 4000;
+
+// Importing routes
 const registerRoute = require("./routes/Register.route.js");
 const loginRoute = require("./routes/Login.route.js");
-const storeTodos = require("./routes/StoreTodos.route.js");
-const fetchTodos = require("./routes/FetchTodos.route.js");
-const deleteTodos = require("./routes/DeleteTodos.route.js");
-const updateTodos = require("./routes/UpdateTodos.route.js");
-const authenticate=require("./Authentication.js")
+const todosRoute = require("./routes/TodoRoute.js");
+const authenticate = require("./Authentication.js");
+
 // Connect to MongoDB
 mongoose
   .connect("mongodb://localhost:27017/todoapp")
@@ -20,25 +20,14 @@ mongoose
 app.use(express.json());
 app.use(cors()); // Enable CORS for all routes
 
-// User registration
+// Routes
 app.use("/", registerRoute);
-
-//login 
 app.use("/login", loginRoute);
 
-//storing todos to the backend
-app.use("/todos/:username", authenticate, storeTodos);
-
-//fetching todos from backend
-app.use("/todos/:username", fetchTodos);
-
-//deleting a todo
-app.use("/todos", deleteTodos);
-
-//update todo and toggle status of a todo
-app.use("/todos", updateTodos);
+// Applying `authenticate` middleware to `/todos` routes
+app.use("/todos", authenticate, todosRoute);
 
 // Start the server
 app.listen(port, () => {
-  console.log(`Server is running at port:${port}`);
+  console.log(`Server is running on port: ${port}`);
 });
